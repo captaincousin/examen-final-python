@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block titulo %}Carga de meseros{% endblock %}
+
+{% block contenido %}
+        {% if meseros_id %}
+        <form action="{% url 'meseros:editar_meseros' meseros_id %}" method="post">
+        {% else %}
+        <form action="{% url 'meseros:carga_meseros' %}" method="post">
+        {% endif %}
+        {% csrf_token %}
+                <table>
+                    {{ formulario.as_table }}
+                    <td></td>
+                </table>
+                <div class="d-flex justify-content-center">
+                    {% if meseros_id %}
+                        <input type="submit" value="Editar" class="btn btn-primary">&nbsp;
+                        <a href="{% url 'meseros:borrar_meseros' meseros_id=meseros_id %}" class="btn btn-danger">Borrar</a>
+                    {% else %}
+                        <input type="submit" value="Guardar" class="btn btn-primary">
+                    {% endif %}
+                </div>
+        </form>
+        <a href="{% url 'meseros:index_meseros' %}">Volver al listado</a>
+{% endblock %}
